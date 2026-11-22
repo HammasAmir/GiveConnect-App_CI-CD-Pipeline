@@ -1,0 +1,365 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard | GiveConnect</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top left, #e0f2e8, transparent 40%),
+                #f4f8f5;
+            color: #243b30;
+            min-height: 100vh;
+            padding: 30px 6%;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: #176b45;
+        }
+
+        .home-btn {
+            text-decoration: none;
+            background: white;
+            color: #176b45;
+            border: 1px solid #c9dfd1;
+            padding: 11px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .home-btn:hover {
+            background: #e5f3e9;
+        }
+
+        .hero {
+            background: linear-gradient(120deg, #145c3b, #238653);
+            color: white;
+            padding: 45px;
+            border-radius: 22px;
+            margin-bottom: 35px;
+            box-shadow: 0 10px 25px rgba(25, 92, 59, 0.15);
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            line-height: 1.7;
+            max-width: 650px;
+            color: #e3f3e9;
+        }
+
+        .section-heading {
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            font-size: 23px;
+            color: #194b34;
+            margin-bottom: 7px;
+        }
+
+        .section-heading p {
+            color: #718078;
+            font-size: 14px;
+        }
+
+        .panel {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(25, 70, 45, 0.06);
+            border: 1px solid #e5eee8;
+            margin-bottom: 38px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: bold;
+            color: #355744;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #d7e4db;
+            border-radius: 9px;
+            background: #fbfdfb;
+            font-size: 14px;
+            outline: none;
+            color: #243b30;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: #238653;
+            box-shadow: 0 0 0 3px rgba(35, 134, 83, 0.10);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            margin-top: 22px;
+            background: #1d754a;
+            color: white;
+            border: none;
+            padding: 14px 25px;
+            border-radius: 9px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #145c3b;
+            transform: translateY(-1px);
+        }
+
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .donation-card {
+            background: white;
+            padding: 23px;
+            border-radius: 16px;
+            border: 1px solid #e2ece5;
+            box-shadow: 0 5px 16px rgba(25, 70, 45, 0.05);
+            transition: 0.2s;
+        }
+
+        .donation-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 22px rgba(25, 70, 45, 0.09);
+        }
+
+        .donation-card h3 {
+            color: #195d3b;
+            margin-bottom: 12px;
+            font-size: 19px;
+        }
+
+        .donation-card p {
+            color: #68786f;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .status {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            background: #e5f5eb;
+            color: #197044;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: capitalize;
+        }
+
+        .empty-state {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            color: #718078;
+            border: 1px dashed #cbded1;
+        }
+
+        footer {
+            text-align: center;
+            color: #829087;
+            font-size: 13px;
+            margin-top: 45px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 20px 5%;
+            }
+
+            .hero {
+                padding: 30px 23px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            header {
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <header>
+            <div class="logo">GiveConnect</div>
+            <a href="/" class="home-btn">← Home</a>
+        </header>
+
+        <section class="hero">
+            <h1>Make a Difference Through Giving</h1>
+            <p>
+                Every donation has the power to improve someone's life.
+                Share items you no longer need and help connect them
+                with people who can benefit from them.
+            </p>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <h2>Share a Donation</h2>
+                <p>Fill in the details below to list an item for someone in need.</p>
+            </div>
+
+            <div class="panel">
+                <form action="/donate" method="post">
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="title">Item Name</label>
+                            <input
+                                type="text"
+                                id="title"
+                                name="title"
+                                placeholder="e.g. Winter Jacket"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select a category</option>
+                                <option value="Clothing">Clothing</option>
+                                <option value="Food">Food</option>
+                                <option value="Books">Books</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Furniture">Furniture</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="description">Description</label>
+                            <textarea
+                                id="description"
+                                name="description"
+                                placeholder="Describe the item and its condition..."
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="donor_name">Your Name</label>
+                            <input
+                                type="text"
+                                id="donor_name"
+                                name="donor_name"
+                                placeholder="Enter your name"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Submit Donation →
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <h2>Your Donations</h2>
+                <p>Keep track of the items you have shared through GiveConnect.</p>
+            </div>
+
+            <div class="donation-grid">
+                {% for donation in donations %}
+                    <div class="donation-card">
+                        <h3>{{ donation["title"] }}</h3>
+                        <p>{{ donation["description"] }}</p>
+                        <p><strong>Category:</strong> {{ donation["category"] }}</p>
+                        <p><strong>Donor:</strong> {{ donation["donor_name"] }}</p>
+                        <span class="status">{{ donation["status"] }}</span>
+                    </div>
+                {% else %}
+                    <div class="empty-state">
+                        <h3>No donations yet</h3>
+                        <p>Your submitted donations will appear here.</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <footer>
+            GiveConnect — Connecting generosity with those in need.
+        </footer>
+
+    </div>
+</body>
+</html>
+
