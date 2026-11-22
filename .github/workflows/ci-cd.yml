@@ -11,6 +11,7 @@ on:
 
 jobs:
   test:
+    
     name: Run Automated Tests
     runs-on: ubuntu-latest
 
@@ -31,3 +32,27 @@ jobs:
       - name: Run Pytest
         run: |
           python -m pytest -v
+
+      
+  
+  security-scan:
+    name: Semgrep Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set Up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Semgrep
+        run: python -m pip install semgrep
+
+      - name: Run Semgrep
+        run: semgrep scan --config p/python --error
+
+
+    
