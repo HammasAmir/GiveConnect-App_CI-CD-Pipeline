@@ -153,6 +153,7 @@ jobs:
           cat > ssm-commands.json <<'EOF'
           {
             "commands": [
+              "apt-get update && apt-get install -y awscli unzip python3-venv",
               "aws s3 cp s3://giveconnect-build-artifacts-hammas-2026/giveconnect.zip /tmp/giveconnect.zip",
               "mkdir -p /tmp/giveconnect-deploy",
               "python3 -c 'import zipfile; zipfile.ZipFile(\"/tmp/giveconnect.zip\").extract(\"deploy.sh\", \"/tmp/giveconnect-deploy\")'",
